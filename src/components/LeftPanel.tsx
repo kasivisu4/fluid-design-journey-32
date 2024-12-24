@@ -1,5 +1,17 @@
 import { motion } from "framer-motion";
-import { LogOut, Home, FileText, Users, Calendar, Settings } from "lucide-react";
+import { 
+  LogOut, 
+  Home, 
+  FileText, 
+  Users, 
+  Search,
+  Building2,
+  ChartBar,
+  Lock,
+  FolderPlus,
+  UserPlus,
+  BuildingPlus
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -10,15 +22,44 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarFooter,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { Button } from "./ui/button";
 
 const menuItems = [
-  { icon: Home, label: "Dashboard", href: "/" },
-  { icon: FileText, label: "Projects", href: "/projects" },
-  { icon: Users, label: "Team", href: "/team" },
-  { icon: Calendar, label: "Calendar", href: "/calendar" },
-  { icon: Settings, label: "Settings", href: "/settings" },
+  { icon: Home, label: "Home", href: "/" },
+  { icon: FileText, label: "TPTF", href: "/tptf" },
+  {
+    icon: FileText,
+    label: "Projects",
+    href: "#",
+    subItems: [
+      { icon: FolderPlus, label: "Create", href: "/projects/create" },
+      { icon: Search, label: "Search", href: "/projects/search" },
+    ],
+  },
+  {
+    icon: Users,
+    label: "Contacts",
+    href: "#",
+    subItems: [
+      { icon: UserPlus, label: "Create", href: "/contacts/create" },
+      { icon: Search, label: "Search", href: "/contacts/search" },
+    ],
+  },
+  {
+    icon: Building2,
+    label: "Properties",
+    href: "#",
+    subItems: [
+      { icon: BuildingPlus, label: "Create", href: "/properties/create" },
+      { icon: Search, label: "Search", href: "/properties/search" },
+    ],
+  },
+  { icon: ChartBar, label: "Reports", href: "/reports" },
+  { icon: Lock, label: "Admin Rights", href: "/admin" },
 ];
 
 export const LeftPanel = () => {
@@ -29,29 +70,47 @@ export const LeftPanel = () => {
 
   return (
     <Sidebar>
-      <SidebarContent>
+      <SidebarContent className="bg-[#ea384c]">
         <SidebarGroup>
-          <SidebarGroupLabel>Menu</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-white">Menu</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.label}>
                   <SidebarMenuButton asChild>
-                    <a href={item.href} className="flex items-center gap-2">
+                    <a 
+                      href={item.href} 
+                      className="flex items-center gap-2 text-white hover:bg-white/10"
+                    >
                       <item.icon className="h-4 w-4" />
                       <span>{item.label}</span>
                     </a>
                   </SidebarMenuButton>
+                  {item.subItems && (
+                    <SidebarMenuSub>
+                      {item.subItems.map((subItem) => (
+                        <SidebarMenuSubItem key={subItem.label}>
+                          <SidebarMenuSubButton
+                            href={subItem.href}
+                            className="text-white hover:bg-white/10"
+                          >
+                            <subItem.icon className="h-4 w-4" />
+                            <span>{subItem.label}</span>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  )}
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="bg-[#ea384c]">
         <Button 
           variant="ghost" 
-          className="w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-50"
+          className="w-full justify-start text-white hover:bg-white/10"
           onClick={handleLogout}
         >
           <LogOut className="mr-2 h-4 w-4" />
