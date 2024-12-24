@@ -10,7 +10,7 @@ import {
   Lock,
   FolderPlus,
   UserPlus,
-  BuildingPlus
+  Building
 } from "lucide-react";
 import {
   Sidebar,
@@ -54,7 +54,7 @@ const menuItems = [
     label: "Properties",
     href: "#",
     subItems: [
-      { icon: BuildingPlus, label: "Create", href: "/properties/create" },
+      { icon: Building, label: "Create", href: "/properties/create" },
       { icon: Search, label: "Search", href: "/properties/search" },
     ],
   },
