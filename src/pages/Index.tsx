@@ -1,12 +1,16 @@
 import { motion } from "framer-motion";
 import { FormField } from "@/components/FormField";
 import { Navigation } from "@/components/Navigation";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { LeftPanel } from "@/components/LeftPanel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 import { useState } from "react";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const Index = () => {
   const [formData, setFormData] = useState({
@@ -31,33 +35,37 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <motion.div 
-        className="container py-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <motion.h1 
-          className="text-4xl font-bold mb-2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          Create Projects
-        </motion.h1>
-        
-        <Navigation />
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <LeftPanel />
+        <div className="flex-1 flex flex-col min-h-screen">
+          <Header />
+          <motion.div 
+            className="flex-1 container py-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.h1 
+              className="text-4xl font-bold mb-2 text-[#ea384c]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              Create Projects
+            </motion.h1>
+            
+            <Navigation />
 
-        <motion.div 
-          className="bg-white rounded-lg shadow-sm p-6 mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <h2 className="text-xl font-semibold mb-6">PROJECT DATA</h2>
-          
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <motion.div 
+              className="bg-white rounded-lg shadow-sm p-6 mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <h2 className="text-xl font-semibold mb-6">PROJECT DATA</h2>
+              
+              <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <FormField label="Project Name" required>
               <Input 
                 placeholder="Enter project name"
@@ -144,20 +152,28 @@ const Index = () => {
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               />
             </FormField>
-          </form>
-        </motion.div>
+              </form>
+            </motion.div>
 
-        <motion.div 
-          className="flex justify-end space-x-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          <Button variant="outline">Cancel</Button>
-          <Button onClick={handleSubmit}>Save</Button>
-        </motion.div>
-      </motion.div>
-    </div>
+            <motion.div 
+              className="flex justify-end space-x-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              <Button variant="outline">Cancel</Button>
+              <Button 
+                onClick={handleSubmit}
+                className="bg-[#ea384c] hover:bg-[#d42d3d]"
+              >
+                Save
+              </Button>
+            </motion.div>
+          </motion.div>
+          <Footer />
+        </div>
+      </div>
+    </SidebarProvider>
   );
 };
 
